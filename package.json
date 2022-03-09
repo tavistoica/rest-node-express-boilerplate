@@ -8,7 +8,7 @@
     "build:server": "webpack --config ./webpack/server.js",
     "build": "npm run build:clean && npm run build:server",
     "dev": "npm run build && node build/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --coverage --runInBand"
   },
   "author": "",
   "license": "ISC",
@@ -27,6 +27,29 @@
       "pre-push": "npm run test"
     }
   },
+  "jest": {
+    "testEnvironment": "node",
+    "verbose": true,
+    "setupFilesAfterEnv": [
+      "./setupTests.js"
+    ],
+    "collectCoverageFrom": [
+      "./src/**/*.js"
+    ],
+    "coverageReporters": [
+      "lcov"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "yml",
+      "yaml"
+    ],
+    "transform": {
+      "\\.ya?ml$": "yaml-jest",
+      "\\.jsx?$": "babel-jest"
+    }
+  },
   "devDependencies": {
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/preset-env": "^7.16.11",
@@ -37,8 +60,11 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.2.0",
     "husky": "^7.0.4",
+    "jest": "^27.5.1",
+    "supertest": "^6.2.2",
     "webpack": "^5.69.1",
     "webpack-cli": "^4.9.2",
-    "webpack-node-externals": "^3.0.0"
+    "webpack-node-externals": "^3.0.0",
+    "yaml-jest": "^1.2.0"
   }
 }

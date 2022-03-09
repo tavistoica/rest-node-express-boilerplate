@@ -84,6 +84,33 @@ paths:
             schema:
               $ref: "#/components/schemas/CreateTodoRequest"
         required: true
+    delete:
+      tags:
+        - todo
+      summary: Deletes all todos from the database
+      operationId: removeAllTodos
+      responses:
+        "200":
+          description: Succesfully deleted all the todos
+          content: {}
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Client Error
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Technical Error
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Technical Error
   /todo/{id}:
     get:
       tags:
@@ -116,36 +143,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
           description: Technical Error
-  /todo/remove:
-    put:
-      tags:
-        - todo
-      summary: Deletes all todos from the database
-      operationId: removeAllTodos
-      responses:
-        "200":
-          description: Succesfully deleted all the todos
-          content: {}
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-          description: Client Error
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-          description: Technical Error
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-          description: Technical Error
-  /todo/remove/{id}:
-    put:
+    delete:
       tags:
         - todo
       summary: Deletes a specific todo from the database

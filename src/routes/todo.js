@@ -9,10 +9,10 @@ import {
 
 const todoRouter = new Router();
 
-todoRouter.get("/", getAllTodos);
 todoRouter.get("/:id", getSpecificTodo);
+todoRouter.get("/", getAllTodos);
 todoRouter.post("/", postTodo);
-todoRouter.put("/remove/:id", removeSpecificTodo);
-todoRouter.put("/remove", removeAllTodos);
+todoRouter.delete("/:id", removeSpecificTodo);
+todoRouter.delete("/", removeAllTodos);
 
 export default todoRouter;
