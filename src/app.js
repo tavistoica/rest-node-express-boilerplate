@@ -12,7 +12,7 @@ app.use(express.json());
 
 const IS_NOT_PRODUCTION = process.env.NODE_ENV !== "production";
 if (IS_NOT_PRODUCTION) {
-  app.use("/api-docs", serve, setup(swaggerDocument));
+  app.use("/docs", serve, setup(swaggerDocument));
 }
 
 //  Swagger error validator
