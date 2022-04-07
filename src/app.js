@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { serve, setup } from "swagger-ui-express";
 import * as OpenApiValidator from "express-openapi-validator";
 import swaggerDocument from "../swagger/spec.yaml";
@@ -9,6 +10,7 @@ import todoRouter from "./routes/todo";
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 const IS_NOT_PRODUCTION = process.env.NODE_ENV !== "production";
 if (IS_NOT_PRODUCTION) {
