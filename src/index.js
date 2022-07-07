@@ -1,14 +1,12 @@
-import app from "./app";
-import { Database } from "./bootstrap/database.bootstrap";
+import { Database } from "./bootstrap/database.bootstrap.js";
+import { Server } from "./bootstrap/server.bootstrap.js";
 
 const port = process.env.PORT || 3001;
 const database = new Database();
+const server = new Server();
 
 database.bootstrap();
+server.bootstrap();
 
 //  Starting the server
-app.listen(port, () => {
-  console.log(`Server started on port ${port}`);
-});
-
-export default app;
+server.listen(port);

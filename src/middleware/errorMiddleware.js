@@ -6,7 +6,8 @@ import { SWAGGER_ERROR } from "../util/errors";
  */
 export default (err, _req, res, next) => {
   const status = err.status || 500;
-  let type = err.type || "unexpected-error";
+  let type = err.type || "error";
+  let short = err.short || "error";
   let detail = err.detail || "Something unexpected happened";
   const placement = err.placement || "global";
 
@@ -18,6 +19,7 @@ export default (err, _req, res, next) => {
   return res.status(status).json({
     status,
     type,
+    short,
     detail,
     placement
   });

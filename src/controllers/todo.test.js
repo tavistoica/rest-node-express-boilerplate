@@ -1,13 +1,21 @@
 import supertest from "supertest";
 import mongoose from "mongoose";
-import app from "../app";
+import { Server } from "../bootstrap/server.bootstrap";
 import Todo from "../models/todo";
+
+const serverInstance = new Server();
+serverInstance.bootstrap();
+const app = serverInstance.app;
 
 const request = supertest(app);
 
 const todoBody = { message: "test" };
 
 describe("todo controller", () => {
+  afterAll(() => {
+    delete serverInstance.app;
+    delete serverInstance.listen;
+  });
   describe("GET /todo/", () => {
     it("should return 200 status code when there is at least a todo in db", async () => {
       const newTodo = new Todo({
@@ -31,7 +39,8 @@ describe("todo controller", () => {
         detail: "No todo was found",
         placement: "global",
         status: 404,
-        type: "not-found"
+        short: "not-found",
+        type: "error"
       });
     });
   });
@@ -50,7 +59,8 @@ describe("todo controller", () => {
         detail: "No message was provided",
         placement: "global",
         status: 400,
-        type: "not-found"
+        short: "not-found",
+        type: "error"
       });
     });
   });
@@ -82,7 +92,8 @@ describe("todo controller", () => {
         detail: "No todo was found",
         placement: "global",
         status: 404,
-        type: "not-found"
+        short: "not-found",
+        type: "error"
       });
     });
   });
@@ -104,7 +115,8 @@ describe("todo controller", () => {
         detail: "The id provided is incorrect",
         placement: "global",
         status: 400,
-        type: "incorrect-data"
+        short: "incorrect-data",
+        type: "error"
       });
     });
     it("should return a 404 error when the todo is not found", async () => {
@@ -114,7 +126,8 @@ describe("todo controller", () => {
         detail: "No todo was found",
         placement: "global",
         status: 404,
-        type: "not-found"
+        short: "not-found",
+        type: "error"
       });
     });
   });
@@ -137,7 +150,8 @@ describe("todo controller", () => {
         detail: "No todo was found",
         placement: "global",
         status: 404,
-        type: "not-found"
+        short: "not-found",
+        type: "error"
       });
     });
   });

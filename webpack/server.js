@@ -6,7 +6,7 @@ const mode = production ? "production" : "development";
 
 module.exports = {
   entry: {
-    server: path.resolve(process.cwd(), "src/index.js"),
+    server: path.resolve(process.cwd(), "src/index.js")
   },
   mode,
   module: {
@@ -16,25 +16,25 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            configFile: path.resolve(process.cwd(), "babel.config.js"),
-          },
-        },
+            configFile: path.resolve(process.cwd(), "babel.config.js")
+          }
+        }
       },
       {
         test: /\.ya?ml$/,
         type: "json",
-        use: "yaml-loader",
-      },
-    ],
+        use: "yaml-loader"
+      }
+    ]
   },
   resolve: {
-    extensions: [".js"],
+    extensions: [".js"]
   },
   target: "node",
   node: {
-    __dirname: true,
+    __dirname: true
   },
   output: {
-    path: path.resolve(process.cwd(), "build"),
-  },
+    path: path.resolve(process.cwd(), "build")
+  }
 };

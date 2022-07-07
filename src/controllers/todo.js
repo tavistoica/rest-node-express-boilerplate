@@ -6,12 +6,18 @@ import {
   NO_MESSAGE_PROVIDED,
   INCORRECT_ID
 } from "../util/errors";
+import { MESSAGE_TYPES } from "../util/constants";
 
 export const getAllTodos = async (_req, res, next) => {
   try {
     const todos = await Todo.find({});
     if (!todos.length)
-      throw new ProblemError(404, NO_TODO_FOUND.TYPE, NO_TODO_FOUND.DETAILS);
+      throw new ProblemError(
+        MESSAGE_TYPES.ERROR,
+        404,
+        NO_TODO_FOUND.TYPE,
+        NO_TODO_FOUND.DETAILS
+      );
     return res.status(200).send(todos);
   } catch (error) {
     next(error);
@@ -22,12 +28,22 @@ export const getSpecificTodo = async (req, res, next) => {
   try {
     const id = req.params.id;
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      throw new ProblemError(400, INCORRECT_ID.TYPE, INCORRECT_ID.DETAILS);
+      throw new ProblemError(
+        MESSAGE_TYPES.ERROR,
+        400,
+        INCORRECT_ID.TYPE,
+        INCORRECT_ID.DETAILS
+      );
     }
 
     const todo = await Todo.findOne({ _id: id });
     if (!todo) {
-      throw new ProblemError(404, NO_TODO_FOUND.TYPE, NO_TODO_FOUND.DETAILS);
+      throw new ProblemError(
+        MESSAGE_TYPES.ERROR,
+        404,
+        NO_TODO_FOUND.TYPE,
+        NO_TODO_FOUND.DETAILS
+      );
     }
     return res.status(200).send(todo);
   } catch (error) {
@@ -40,6 +56,7 @@ export const postTodo = async (req, res, next) => {
     const message = req.body.message;
     if (!message.length)
       throw new ProblemError(
+        MESSAGE_TYPES.ERROR,
         400,
         NO_MESSAGE_PROVIDED.TYPE,
         NO_MESSAGE_PROVIDED.DETAILS
@@ -58,12 +75,22 @@ export const removeSpecificTodo = async (req, res, next) => {
   try {
     const id = req.params.id;
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      throw new ProblemError(400, INCORRECT_ID.TYPE, INCORRECT_ID.DETAILS);
+      throw new ProblemError(
+        MESSAGE_TYPES.ERROR,
+        400,
+        INCORRECT_ID.TYPE,
+        INCORRECT_ID.DETAILS
+      );
     }
 
     const todo = await Todo.findOne({ _id: id });
     if (!todo)
-      throw new ProblemError(404, NO_TODO_FOUND.TYPE, NO_TODO_FOUND.DETAILS);
+      throw new ProblemError(
+        MESSAGE_TYPES.ERROR,
+        404,
+        NO_TODO_FOUND.TYPE,
+        NO_TODO_FOUND.DETAILS
+      );
     await Todo.deleteOne({ _id: id });
     return res.sendStatus(200);
   } catch (error) {
@@ -75,7 +102,12 @@ export const removeAllTodos = async (_req, res, next) => {
   try {
     const todos = await Todo.find({});
     if (!todos.length)
-      throw new ProblemError(404, NO_TODO_FOUND.TYPE, NO_TODO_FOUND.DETAILS);
+      throw new ProblemError(
+        MESSAGE_TYPES.ERROR,
+        404,
+        NO_TODO_FOUND.TYPE,
+        NO_TODO_FOUND.DETAILS
+      );
     await Todo.deleteMany({});
     return res.sendStatus(200);
   } catch (error) {

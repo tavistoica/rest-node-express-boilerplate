@@ -130,7 +130,13 @@ import Todo from "../models/User";
 const getTodo = async (id) => {
   const todo = await Todo.findById(id);
   if (!todo) {
-    throw new ProblemError(404, "not-found", "User not found", "global");
+    throw new ProblemError(
+      "error",
+      404,
+      "not-found",
+      "User not found",
+      "global"
+    );
   }
 };
 ```
