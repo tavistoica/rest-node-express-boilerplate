@@ -1,6 +1,5 @@
+import mongoose from "mongoose";
 import { dbURL } from "../util/database";
-
-const mongoose = require("mongoose");
 
 export class Database {
   bootstrap(options) {
